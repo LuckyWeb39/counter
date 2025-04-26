@@ -1,0 +1,68 @@
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    font-size: 30px;
+}
+
+.act {
+  color: rgba(30, 30, 30, 0.89);
+}
+
+.dis {
+    color: red;
+}
+
+.countWrapper {
+    border: 2px solid #00ffd0;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.countDisplay {
+    background-color: #00ffd0;
+    padding: 10px 0;
+    color: rgba(30, 30, 30, 0.89);
+    font-size: 50px;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.buttons {
+    border: 2px solid #00ffd0;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.disabled {
+    border-radius: 10px;
+    border: none;
+    padding: 5px;
+    margin: 10px;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: rgba(0, 255, 208, 0.3);
+    color: rgba(30, 30, 30, 0.89);
+    cursor: not-allowed;
+}
+
+.active {
+    border-radius: 10px;
+    border: none;
+    padding: 5px;
+    margin: 10px;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #00ffd0;
+    color: rgba(30, 30, 30, 0.89);
+    cursor: pointer;
+}
+
+.active:active {
+    background-color: rgba(30, 30, 30, 0.89);
+    color: #00ffd0;
+}
