@@ -1,68 +1,91 @@
-#root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
-    font-size: 30px;
+.counter {
+    border: 3px solid blue;
+    width: 500px;
+    border-radius: 20px;
+    padding: 20px;
 }
-
-.act {
-  color: rgba(30, 30, 30, 0.89);
-}
-
-.dis {
-    color: red;
-}
-
-.countWrapper {
-    border: 2px solid #00ffd0;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-.countDisplay {
-    background-color: #00ffd0;
-    padding: 10px 0;
-    color: rgba(30, 30, 30, 0.89);
-    font-size: 50px;
-    font-weight: bold;
-    border-radius: 10px;
+.counter-display{
+    background-color: blue;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
     margin-bottom: 20px;
+    height: 150px ;
+    padding: 10px 20px;
 }
 
-.buttons {
-    border: 2px solid #00ffd0;
-    padding: 10px;
-    border-radius: 10px;
+.button-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid blue;
+    padding: 20px;
+    border-radius: 20px;
 }
 
-.disabled {
-    border-radius: 10px;
+.counter-button{
+    font-size: 30px;
+    padding: 10px 30px;
+    background-color: blue;
+    color: white;
     border: none;
-    padding: 5px;
-    margin: 10px;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: rgba(0, 255, 208, 0.3);
-    color: rgba(30, 30, 30, 0.89);
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.counter-button:last-child{
+    margin-right: 0;
+}
+
+.counter-button:disabled{
+    opacity: 0.5;
     cursor: not-allowed;
 }
 
-.active {
-    border-radius: 10px;
-    border: none;
-    padding: 5px;
-    margin: 10px;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #00ffd0;
-    color: rgba(30, 30, 30, 0.89);
-    cursor: pointer;
+.red{
+    color: red;
+    font-size: 90px;
+    font-weight: bold;
 }
 
-.active:active {
-    background-color: rgba(30, 30, 30, 0.89);
-    color: #00ffd0;
+.black {
+    color: white;
+    font-size: 70px;
+    font-weight: bold;
+}
+
+.label-count {
+    display: flex;
+    margin-bottom:20px;
+    font-size: 20px;
+    gap: 30px;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.label-count:last-child{
+    margin-bottom: 0;
+}
+
+.input-count{
+    width: 50%;
+    text-align: center;
+    font-size: 20px;
+
+}
+
+.input-error{
+    width: 50%;
+    text-align: center;
+    font-size: 20px;
+    background-color: rgba(255, 0, 0, 0.8);
+}
+.error-title {
+    display: flex;
+    justify-content: center;
+    color: #ff0000;
 }
