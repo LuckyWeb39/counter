@@ -11,7 +11,7 @@ type CounterProps = {
     changeMode: () => void;
     changeMin: (val: number) => void;
     changeMax: (val: number) => void;
-    error: string;
+    error: { code: number, description: string };
 }
 
 export const Counter = ({min, max, isEdit, changeMode, changeMin, changeMax, error}: CounterProps) => {
@@ -33,12 +33,13 @@ export const Counter = ({min, max, isEdit, changeMode, changeMin, changeMax, err
 
     return (
         <div className="counter">
-            {!!error && <span className={'error-title'}>{error}</span>}
+
             <CountDisplay>
                 {isEdit ? (
                     <>
-                        <Input title={"Set the min value"} value={min} onChange={changeMin} error={error}/>
-                        <Input title={"Set the max value"} value={max} onChange={changeMax} error={error}/>
+                        <Input title={"Set the min value"} value={min} onChange={changeMin} className={error.code === 1 || error.code ===2 ? 'input-error': "input-count"}/>
+                        <Input title={"Set the max value"} value={max} onChange={changeMax} className={error.code === 3 ? 'input-error': "input-count"}/>
+                        {!!error && <span className={'error-title'}>{error.description}</span>}
                     </>
                 ) : (
                     <span className={count === max ? 'red' : 'black'}>{count}</span>
@@ -48,12 +49,12 @@ export const Counter = ({min, max, isEdit, changeMode, changeMin, changeMax, err
 
             <ButtonsWrapper>
                 {isEdit ? (
-                    <Button title={"SET"} onClick={changeMode} disabled={!!error}/>
+                    <Button title={"SET"} onClick={changeMode} disabled={!!error.code}/>
                 ) : (
                     <>
                         <Button title={"INC"} onClick={IncHandler} disabled={count === max}/>
                         <Button title={"RES"} onClick={ResetHandler} disabled={count === min}/>
-                        <Button title={"SET"} onClick={changeMode} disabled={!!error}/>
+                        <Button title={"SET"} onClick={changeMode} disabled={!!error.code}/>
                     </>
                 )}
 

@@ -3,13 +3,15 @@ import './App.css'
 import {Counter} from "./components/counter/Counter.tsx";
 import {useState} from "react";
 
+
+
 function App() {
 
     const [min, setMin] = useState(0);
     const [max, setMax] = useState(5);
 
     const [isEdit,setIsEdit] = useState(false);
-    const [error,setError] = useState('');
+    const [error,setError] = useState({code:0,description:""});
 
     const changeMode = () => {
         setIsEdit(!isEdit);
@@ -18,19 +20,28 @@ function App() {
 
     const changeMin = (val: number) => {
         if(val<0) {
-            setError('Минимальное значение должно быть больше нуля')
+            setError({
+                code: 1,
+                description:'Значение не может быть меньше нуля'
+            })
         } else if (val>=max){
-            setError('Минимальное значение должно быть меньше максимального')
+            setError({
+                code: 2,
+                description:'Минимальное значение не может быть больше максимального'
+            })
         }  else {
-            setError('')
+            setError({code:0,description:""})
             setMin(val)
         }
     }
     const changeMax = (val: number) => {
         if (val<=min){
-            setError('Максимальное значение должно быть больше минимального')
+            setError({
+                code: 3,
+                description:'Максимальное значение не может быть меньше минимального'
+            })
         } else {
-            setError('')
+            setError({code:0,description:""})
             setMax(val)
         }
     }
