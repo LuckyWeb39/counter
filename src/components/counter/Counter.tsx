@@ -2,22 +2,21 @@ import {CountDisplay} from "../coutDisplay/CountDisplay.tsx";
 import {ButtonsWrapper} from "../buttonsWrapper/ButtonsWrapper.tsx";
 import {Button} from "../button/Button.tsx";
 import {useEffect, useState} from "react";
-import {Input} from "../input/Input.tsx";
+
 
 type CounterProps = {
     min: number;
     max: number;
     isEdit: boolean;
-    changeMode: () => void;
-    changeMin: (val: number) => void;
-    changeMax: (val: number) => void;
     error: { code: number, description: string };
 }
 
-export const Counter = ({min, max, isEdit, changeMode, changeMin, changeMax, error}: CounterProps) => {
+export const Counter = ({min, max, isEdit, error}: CounterProps) => {
+
     const [count, setCount] = useState(min);
 
     useEffect(() => {
+        console.log('перерисовался')
         setCount(min)
     }, [min])
 
@@ -31,33 +30,31 @@ export const Counter = ({min, max, isEdit, changeMode, changeMin, changeMax, err
         setCount(min)
     }
 
+    const errorSpan = <span className={'error-title'}>{error.description}</span>
+    const isEditSpan = <span className={'isEdit-title'}>Введите значение и нажмите "SET"</span>
+    const displaySpan = <span className={count === max ? 'red' : 'black'}>{count}</span>
+
     return (
         <div className="counter">
-
             <CountDisplay>
-                {isEdit ? (
+                {error.code !== 0 ? (
                     <>
-                        <Input title={"Set the min value"} value={min} onChange={changeMin} className={error.code === 1 || error.code ===2 ? 'input-error': "input-count"}/>
-                        <Input title={"Set the max value"} value={max} onChange={changeMax} className={error.code === 3 ? 'input-error': "input-count"}/>
-                        {!!error && <span className={'error-title'}>{error.description}</span>}
+                        {errorSpan}
                     </>
+                ) : isEdit ? (
+                    <>
+                        {isEditSpan}
+                     </>
                 ) : (
-                    <span className={count === max ? 'red' : 'black'}>{count}</span>
+                    <>
+                        {displaySpan}
+                    </>
                 )}
-
             </CountDisplay>
 
             <ButtonsWrapper>
-                {isEdit ? (
-                    <Button title={"SET"} onClick={changeMode} disabled={!!error.code}/>
-                ) : (
-                    <>
-                        <Button title={"INC"} onClick={IncHandler} disabled={count === max}/>
-                        <Button title={"RES"} onClick={ResetHandler} disabled={count === min}/>
-                        <Button title={"SET"} onClick={changeMode} disabled={!!error.code}/>
-                    </>
-                )}
-
+                <Button title={"INC"} onClick={IncHandler} disabled={count === max || isEdit}/>
+                <Button title={"RES"} onClick={ResetHandler} disabled={count === min || isEdit}/>
             </ButtonsWrapper>
         </div>
     )

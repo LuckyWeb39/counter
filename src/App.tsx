@@ -1,7 +1,7 @@
 import './App.css'
-
 import {Counter} from "./components/counter/Counter.tsx";
 import {useState} from "react";
+import {CounterSettings} from "./components/counterSettings/CounterSettings.tsx";
 
 
 
@@ -22,7 +22,7 @@ function App() {
         if(val<0) {
             setError({
                 code: 1,
-                description:'Значение не может быть меньше нуля'
+                description:'Значение не может быть отрицательным'
             })
         } else if (val>=max){
             setError({
@@ -31,6 +31,7 @@ function App() {
             })
         }  else {
             setError({code:0,description:""})
+            setIsEdit(true);
             setMin(val)
         }
     }
@@ -42,21 +43,30 @@ function App() {
             })
         } else {
             setError({code:0,description:""})
+            setIsEdit(true)
             setMax(val)
         }
     }
 
 
     return (
-        <Counter
-        min={min}
-        max={max}
-        isEdit={isEdit}
-        changeMode={changeMode}
-        changeMin={changeMin}
-        changeMax={changeMax}
-        error={error}
-        />
+        <div className="App">
+            <Counter
+                min={min}
+                max={max}
+                isEdit={isEdit}
+                error={error}
+            />
+            <CounterSettings
+                min={min}
+                max={max}
+                isEdit={isEdit}
+                changeMode={changeMode}
+                changeMin={changeMin}
+                changeMax={changeMax}
+                error={error}
+            />
+        </div>
     )
 }
 
