@@ -1,14 +1,23 @@
 import './App.css'
 import {Counter} from "./components/counter/Counter.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {CounterSettings} from "./components/counterSettings/CounterSettings.tsx";
 
 
 
 function App() {
 
-    const [min, setMin] = useState(0);
-    const [max, setMax] = useState(5);
+    const [min, setMin] = useState(() => {
+        return Number(localStorage.getItem("minValue")) || 0;
+    });
+    const [max, setMax] = useState(() => {
+        return Number(localStorage.getItem("maxValue")) || 0;
+    });
+
+    useEffect(() => {
+        localStorage.setItem('minValue', JSON.stringify(min));
+        localStorage.setItem('maxValue', JSON.stringify(max));
+    }, [min, max]);
 
     const [isEdit,setIsEdit] = useState(false);
     const [error,setError] = useState({code:0,description:""});
@@ -16,6 +25,7 @@ function App() {
     const changeMode = () => {
         setIsEdit(!isEdit);
     }
+
 
 
     const changeMin = (val: number) => {

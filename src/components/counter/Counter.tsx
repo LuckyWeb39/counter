@@ -16,7 +16,6 @@ export const Counter = ({min, max, isEdit, error}: CounterProps) => {
     const [count, setCount] = useState(min);
 
     useEffect(() => {
-        console.log('перерисовался')
         setCount(min)
     }, [min])
 
