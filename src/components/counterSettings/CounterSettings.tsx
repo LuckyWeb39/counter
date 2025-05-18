@@ -2,6 +2,7 @@ import {CountDisplay} from "../coutDisplay/CountDisplay.tsx";
 import {ButtonsWrapper} from "../buttonsWrapper/ButtonsWrapper.tsx";
 import {Button} from "../button/Button.tsx";
 import {Input} from "../input/Input.tsx";
+import {errorCodes} from "../../App.tsx";
 
 type CounterProps = {
     min: number;
@@ -10,7 +11,7 @@ type CounterProps = {
     changeMode: () => void;
     changeMin: (val: number) => void;
     changeMax: (val: number) => void;
-    error: { code: number, description: string };
+    error: string | null;
 }
 
 export const CounterSettings = ({min, max, isEdit, changeMode, changeMin, changeMax, error}: CounterProps) => {
@@ -22,18 +23,18 @@ export const CounterSettings = ({min, max, isEdit, changeMode, changeMin, change
                         <Input title={"Set the min value"}
                                value={min}
                                onChange={changeMin}
-                               className={error.code === 1 || error.code ===2 ? 'input-error': "input-count"}
+                               className={error === errorCodes.minIsBiggerThanMax || error === errorCodes.negativeNumber ? 'input-error': "input-count"}
                         />
                         <Input title={"Set the max value"}
                                value={max}
                                onChange={changeMax}
-                               className={error.code === 3 ? 'input-error': "input-count"}
+                               className={error === errorCodes.maxIsSmalledThanMin || error === errorCodes.negativeNumber ? 'input-error': "input-count"}
                         />
 
             </CountDisplay>
 
             <ButtonsWrapper>
-                    <Button title={"SET"} onClick={changeMode} disabled={error.code !== 0 || !isEdit}/>
+                    <Button title={"SET"} onClick={changeMode} disabled={error !== null || !isEdit}/>
             </ButtonsWrapper>
         </div>
     )

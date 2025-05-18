@@ -1,61 +1,50 @@
 import './App.css'
 import {Counter} from "./components/counter/Counter.tsx";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {CounterSettings} from "./components/counterSettings/CounterSettings.tsx";
 
+export const errorCodes = {
+    negativeNumber: 'Значение не может быть отрицательным',
+    minIsBiggerThanMax: 'Минимальное значение не может быть больше максимального',
+    maxIsSmalledThanMin: 'Максимальное значение не может быть меньше минимального'
+}
 
+type KeysOfErrorCodes = keyof typeof errorCodes;
+type ValuesOfErrorCodes = typeof errorCodes[KeysOfErrorCodes];
 
 function App() {
 
     const [min, setMin] = useState(() => {
-        return Number(localStorage.getItem("minValue")) || 0;
+        return Number(localStorage.getItem("min")) || 0;
     });
     const [max, setMax] = useState(() => {
-        return Number(localStorage.getItem("maxValue")) || 0;
+        return Number(localStorage.getItem("max")) || 0;
     });
 
-    useEffect(() => {
-        localStorage.setItem('minValue', JSON.stringify(min));
-        localStorage.setItem('maxValue', JSON.stringify(max));
-    }, [min, max]);
 
-    const [isEdit,setIsEdit] = useState(false);
-    const [error,setError] = useState({code:0,description:""});
+    const [isEdit, setIsEdit] = useState(false);
 
     const changeMode = () => {
         setIsEdit(!isEdit);
+        localStorage.setItem('min', JSON.stringify(min));
+        localStorage.setItem('max', JSON.stringify(max));
     }
 
 
+    const error: ValuesOfErrorCodes | null =
+        min < 0 || max < 0 ? errorCodes.negativeNumber :
+            max <= min ? errorCodes.maxIsSmalledThanMin :
+                min >= max ? errorCodes.minIsBiggerThanMax :
+
+                    null
 
     const changeMin = (val: number) => {
-        if(val<0) {
-            setError({
-                code: 1,
-                description:'Значение не может быть отрицательным'
-            })
-        } else if (val>=max){
-            setError({
-                code: 2,
-                description:'Минимальное значение не может быть больше максимального'
-            })
-        }  else {
-            setError({code:0,description:""})
-            setIsEdit(true);
-            setMin(val)
-        }
+        setIsEdit(true);
+        setMin(val)
     }
     const changeMax = (val: number) => {
-        if (val<=min){
-            setError({
-                code: 3,
-                description:'Максимальное значение не может быть меньше минимального'
-            })
-        } else {
-            setError({code:0,description:""})
-            setIsEdit(true)
-            setMax(val)
-        }
+        setIsEdit(true)
+        setMax(val)
     }
 
 

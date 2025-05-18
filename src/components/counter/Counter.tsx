@@ -8,7 +8,7 @@ type CounterProps = {
     min: number;
     max: number;
     isEdit: boolean;
-    error: { code: number, description: string };
+    error: string|null;
 }
 
 export const Counter = ({min, max, isEdit, error}: CounterProps) => {
@@ -29,14 +29,15 @@ export const Counter = ({min, max, isEdit, error}: CounterProps) => {
         setCount(min)
     }
 
-    const errorSpan = <span className={'error-title'}>{error.description}</span>
+    const errorSpan = <span className={'error-title'}>{error}</span>
     const isEditSpan = <span className={'isEdit-title'}>Введите значение и нажмите "SET"</span>
     const displaySpan = <span className={count === max ? 'red' : 'black'}>{count}</span>
 
     return (
         <div className="counter">
             <CountDisplay>
-                {error.code !== 0 ? (
+
+                {error !== null ? (
                     <>
                         {errorSpan}
                     </>
