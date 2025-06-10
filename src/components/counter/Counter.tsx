@@ -47,7 +47,7 @@ export const Counter = ({error}: CounterProps) => {
         <div className="counter">
             <CountDisplay>
 
-                {error !== null ? (
+                {error !== '' ? (
                     <>
                         {errorSpan}
                     </>

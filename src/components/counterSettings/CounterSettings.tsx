@@ -46,18 +46,18 @@ export const CounterSettings = ({error}: CounterProps) => {
                         <Input title={"Set the min value"}
                                value={min}
                                onChange={changeMin}
-                               className={error === errorCodes.minIsBiggerThanMax || error === errorCodes.negativeNumber ? 'input-error': "input-count"}
+                               className={ min < 0 || min >= max ? 'input-error': "input-count"}
                         />
                         <Input title={"Set the max value"}
                                value={max}
                                onChange={changeMax}
-                               className={error === errorCodes.maxIsSmalledThanMin || error === errorCodes.negativeNumber ? 'input-error': "input-count"}
+                               className={max<0 || max <= min ? 'input-error': "input-count"}
                         />
 
             </CountDisplay>
 
             <ButtonsWrapper>
-                    <Button title={"SET"} onClick={changeMode} disabled={error !== null || !isEdit}/>
+                    <Button title={"SET"} onClick={changeMode} disabled={error !== '' || !isEdit}/>
             </ButtonsWrapper>
         </div>
     )

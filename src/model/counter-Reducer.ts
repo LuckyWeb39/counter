@@ -13,12 +13,13 @@ const initialState: TypeInitialState  = {
     max: 1,
     count: 0,
     isEdit: false,
-    error: null,
+    error: '',
 }
 //APP
 export const changeMinAC = createAction<{val: number}>('counter/changeMin');
 //export const changeMinAC = createAction('counter/changeMin', (val:number)=>({payload: val}));
 export const changeMaxAC = createAction<{val: number}>('counter/changeMax');
+export const changeStatusErrorAC = createAction<{error: string}>('counter/changeStatusError');
 
 //Counter
 export const incCountAC = createAction('counter/incCount');
@@ -42,5 +43,8 @@ export const counterReducer = createReducer(initialState, builder => {
         .addCase(changeModeAC, (state, action) => {
             state.isEdit = action.payload.isEdit
         })
+         .addCase(changeStatusErrorAC, (state, action) => {
+             state.error = action.payload.error
+         })
 
 });
