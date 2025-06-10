@@ -1,32 +1,42 @@
 import {CountDisplay} from "../coutDisplay/CountDisplay.tsx";
 import {ButtonsWrapper} from "../buttonsWrapper/ButtonsWrapper.tsx";
 import {Button} from "../button/Button.tsx";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
+import {useAppSelector} from "../../common/hooks/useAppSelector.ts";
+import {selectCount, selectMax, selectMin} from "../../model/counter-selectors.ts";
+import {useAppDispatch} from "../../common/hooks/useAppDispatch.ts";
+import {incCountAC, resetCountAC} from "../../model/counter-Reducer.ts";
 
 
 type CounterProps = {
-    min: number;
-    max: number;
     isEdit: boolean;
     error: string|null;
 }
 
-export const Counter = ({min, max, isEdit, error}: CounterProps) => {
+export const Counter = ({isEdit, error}: CounterProps) => {
 
-    const [count, setCount] = useState(min);
+    const count = useAppSelector(selectCount)
+    const min = useAppSelector(selectMin)
+    const max = useAppSelector(selectMax)
+    const dispatch = useAppDispatch()
+
+    // const [count, setCount] = useState(min);
 
     useEffect(() => {
-        setCount(min)
-    }, [min])
+        dispatch(resetCountAC())
+        //setCount(min)
+    }, [dispatch,min])
 
     const IncHandler = () => {
         if (count < max) {
-            setCount((prev) => prev + 1);
+            dispatch(incCountAC())
+            //setCount((prev) => prev + 1);
         }
     }
 
     const ResetHandler = () => {
-        setCount(min)
+        dispatch(resetCountAC())
+        //setCount(min)
     }
 
     const errorSpan = <span className={'error-title'}>{error}</span>
