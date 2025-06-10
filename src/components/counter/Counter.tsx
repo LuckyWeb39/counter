@@ -3,19 +3,19 @@ import {ButtonsWrapper} from "../buttonsWrapper/ButtonsWrapper.tsx";
 import {Button} from "../button/Button.tsx";
 import {useEffect} from "react";
 import {useAppSelector} from "../../common/hooks/useAppSelector.ts";
-import {selectCount, selectMax, selectMin} from "../../model/counter-selectors.ts";
+import {selectChangeMode, selectCount, selectMax, selectMin} from "../../model/counter-selectors.ts";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch.ts";
-import {incCountAC, resetCountAC} from "../../model/counter-Reducer.ts";
+import {incCountAC, installCountAC} from "../../model/counter-Reducer.ts";
 
 
 type CounterProps = {
-    isEdit: boolean;
     error: string|null;
 }
 
-export const Counter = ({isEdit, error}: CounterProps) => {
+export const Counter = ({error}: CounterProps) => {
 
     const count = useAppSelector(selectCount)
+    const isEdit = useAppSelector(selectChangeMode)
     const min = useAppSelector(selectMin)
     const max = useAppSelector(selectMax)
     const dispatch = useAppDispatch()
@@ -23,7 +23,7 @@ export const Counter = ({isEdit, error}: CounterProps) => {
     // const [count, setCount] = useState(min);
 
     useEffect(() => {
-        dispatch(resetCountAC())
+        dispatch(installCountAC())
         //setCount(min)
     }, [dispatch,min])
 
@@ -35,7 +35,7 @@ export const Counter = ({isEdit, error}: CounterProps) => {
     }
 
     const ResetHandler = () => {
-        dispatch(resetCountAC())
+        dispatch(installCountAC())
         //setCount(min)
     }
 

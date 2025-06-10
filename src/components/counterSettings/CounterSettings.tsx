@@ -4,22 +4,40 @@ import {Button} from "../button/Button.tsx";
 import {Input} from "../input/Input.tsx";
 import {errorCodes} from "../../app/App.tsx";
 import {useAppSelector} from "../../common/hooks/useAppSelector.ts";
-import {selectMax, selectMin} from "../../model/counter-selectors.ts";
+import {selectChangeMode, selectMax, selectMin} from "../../model/counter-selectors.ts";
+import {useAppDispatch} from "../../common/hooks/useAppDispatch.ts";
+import {changeMaxAC, changeMinAC, changeModeAC} from "../../model/counter-Reducer.ts";
 
 type CounterProps = {
-    isEdit: boolean;
-    changeMode: () => void;
-    changeMin: (val: number) => void;
-    changeMax: (val: number) => void;
     error: string | null;
 }
 
-export const CounterSettings = ({isEdit, changeMode, changeMin, changeMax, error}: CounterProps) => {
+export const CounterSettings = ({error}: CounterProps) => {
 
     const min = useAppSelector(selectMin)
     const max = useAppSelector(selectMax)
+    const isEdit = useAppSelector(selectChangeMode)
+    const dispatch = useAppDispatch()
 
+    const changeMin = (val: number) => {
+        dispatch(changeModeAC({isEdit: true}))
+        //setIsEdit(true);
+        dispatch(changeMinAC({val}))
+        // setMin(val)
+    }
+    const changeMax = (val: number) => {
+        dispatch(changeModeAC({isEdit: true}))
+        //setIsEdit(true)
+        dispatch(changeMaxAC({val}))
+        //setMax(val)
+    }
 
+    const changeMode = () => {
+        dispatch(changeModeAC({isEdit:!isEdit}))
+        //setIsEdit(!isEdit);
+        // localStorage.setItem('min', JSON.stringify(min));
+        // localStorage.setItem('max', JSON.stringify(max));
+    }
 
     return (
         <div className="counter">

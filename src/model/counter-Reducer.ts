@@ -5,6 +5,7 @@ export type TypeInitialState = {
     max: number;
     count: number;
     isEdit: boolean;
+    error: string;
 }
 
 const initialState: TypeInitialState  = {
@@ -12,6 +13,7 @@ const initialState: TypeInitialState  = {
     max: 1,
     count: 0,
     isEdit: false,
+    error: null,
 }
 //APP
 export const changeMinAC = createAction<{val: number}>('counter/changeMin');
@@ -20,7 +22,7 @@ export const changeMaxAC = createAction<{val: number}>('counter/changeMax');
 
 //Counter
 export const incCountAC = createAction('counter/incCount');
-export const resetCountAC = createAction('counter/ResetHandler');
+export const installCountAC = createAction('counter/ResetHandler');
 export const changeModeAC = createAction<{isEdit:boolean}>('counter/changeMode');
 
 export const counterReducer = createReducer(initialState, builder => {
@@ -34,7 +36,7 @@ export const counterReducer = createReducer(initialState, builder => {
         .addCase(incCountAC, (state) => {
             state.count += 1
         })
-        .addCase(resetCountAC, (state) => {
+        .addCase(installCountAC, (state) => {
             state.count = state.min
         })
         .addCase(changeModeAC, (state, action) => {
